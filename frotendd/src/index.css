@@ -1,0 +1,36 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 
+           transition-all duration-200 shadow-md hover:shadow-lg font-medium;
+  }
+  .btn-secondary {
+    @apply bg-gray-500 text-white px-6 py-2.5 rounded-xl hover:bg-gray-600 
+           transition-all duration-200 shadow-sm font-medium;
+  }
+  .btn-danger {
+    @apply bg-red-500 text-white px-4 py-2 rounded-xl hover:bg-red-600 
+           transition-all duration-200 font-medium;
+  }
+  .input-field {
+    @apply w-full px-4 py-2.5 border border-gray-300 rounded-xl 
+           focus:ring-2 focus:ring-blue-500 focus:border-transparent 
+           outline-none transition-all bg-white/80 backdrop-blur-sm;
+  }
+  .card {
+    @apply bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 
+           border border-white/20 transition-all hover:shadow-2xl;
+  }
+  .glass-effect {
+    @apply bg-white/30 backdrop-blur-md border border-white/20 shadow-lg;
+  }
+}
