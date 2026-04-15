@@ -50,7 +50,7 @@ createDefaultAdmin();
 app.use(helmet());
 
 app.use(cors({
-  origin: 'https://primetrade-ai-task-swart.vercel.app',
+  origin: 'https://primetrade-ai-task-swart.vercel.app/',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
