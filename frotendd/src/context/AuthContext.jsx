@@ -32,20 +32,37 @@ export const AuthProvider = ({ children }) => {
 }, []);
 
   const login = async (email, password) => {
-    try {
-      const { data } = await loginApi({ email, password });
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('user', JSON.stringify(data.user));
-      setUser(data.user);
-      toast.success('Welcome back!');
-      return { success: true };
-    } catch (err) {
-      const msg = err.response?.data?.message || 'Login failed';
-      toast.error(msg);
-      return { success: false, message: msg };
-    }
-  };
+  try {
+    const res = await loginApi({ email, password });
 
+    console.log("FULL RESPONSE:", res.data);
+
+    const token =
+      res.data.token ||
+      res.data.data?.token ||
+      res.data.accessToken;
+
+    const user =
+      res.data.user ||
+      res.data.data?.user;
+
+    if (!token) {
+      throw new Error("Token not found in response");
+    }
+
+    localStorage.setItem("token", token);
+    localStorage.setItem("user", JSON.stringify(user));
+
+    setUser(user);
+
+    toast.success("Welcome back!");
+    return { success: true };
+  } catch (err) {
+    console.log("LOGIN ERROR:", err.response?.data || err.message);
+    toast.error("Login failed");
+    return { success: false };
+  }
+};
   const register = async (name, email, password) => {
     try {
       const { data } = await registerApi({ name, email, password });
