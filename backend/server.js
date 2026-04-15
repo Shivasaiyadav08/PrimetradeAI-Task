@@ -38,7 +38,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: 'https://primetradeai-task.onrender.com',
+  origin: 'https://primetrade-ai-task-swart.vercel.app',
   credentials: true,
 }));
 
