@@ -1,23 +1,30 @@
 import axios from 'axios';
 
-const API_BASE = 'https://primetradeai-task.onrender.com || /api';
+// ✅ Correct backend base URL
+const API_BASE = 'https://primetradeai-task.onrender.com/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE,
   headers: { 'Content-Type': 'application/json' },
 });
 
-// Request interceptor – attach JWT token
+// =======================
+// ✅ Request Interceptor
+// =======================
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
-    if (token) config.headers.Authorization = `Bearer ${token}`;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// Response interceptor – handle 401
+// =======================
+// ✅ Response Interceptor
+// =======================
 api.interceptors.response.use(
   (res) => res,
   (error) => {
@@ -30,12 +37,16 @@ api.interceptors.response.use(
   }
 );
 
-// Auth endpoints
+// =======================
+// ✅ Auth APIs
+// =======================
 export const register = (data) => api.post('/auth/register', data);
 export const login = (data) => api.post('/auth/login', data);
 export const getMe = () => api.get('/auth/me');
 
-// Task endpoints
+// =======================
+// ✅ Task APIs
+// =======================
 export const getTasks = () => api.get('/tasks');
 export const getTask = (id) => api.get(`/tasks/${id}`);
 export const createTask = (data) => api.post('/tasks', data);
