@@ -11,14 +11,25 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+  const initAuth = async () => {
     const token = localStorage.getItem('token');
     const storedUser = localStorage.getItem('user');
+
     if (token && storedUser) {
       setUser(JSON.parse(storedUser));
-      getMe().catch(() => logout());
+
+      try {
+        await getMe();
+      } catch (err) {
+        logout();
+      }
     }
+
     setLoading(false);
-  }, []);
+  };
+
+  initAuth();
+}, []);
 
   const login = async (email, password) => {
     try {
